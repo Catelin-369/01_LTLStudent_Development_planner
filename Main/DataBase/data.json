@@ -1,1 +1,47 @@
+{
+  "students": [
+    {
+      "id": 1,
+      "name": "Emma",
+      "surname": "Johnson",
+      "age": 11,
+      "grade": "Grade 5",
+      "school": "Lincoln Elementary",
+      "career_goal": "Software Developer",
+      "interests": ["Coding", "Robotics"],
+      "strengths": ["Problem Solving", "Creativity"],
+      "classes": [1, 2],
+      "notes": [
+        {
+          "date": "2026-02-22",
+          "content": "Very focused during Python lesson."
+        }
+      ],
+      "last_updated": "2026-02-22"
+    }
+  ],
 
+  "classes": [
+    {
+      "id": 1,
+      "class_name": "Python course 1",
+      "schedule": "Wed 2:00",
+      "subject": "Python",
+      "students": [1]
+    },
+    {
+      "id": 2,
+      "class_name": "Robotics",
+      "schedule": "Fri 3:00",
+      "subject": "Robotics",
+      "students": [1]
+    },
+    {
+      "id": 3,
+      "class_name": "Java Script",
+      "schedule": "Mon 4:00",
+      "subject": "JavaScript",
+      "students": []
+    }
+  ]
+}

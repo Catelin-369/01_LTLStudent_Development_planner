@@ -106,4 +106,30 @@ def add_note(student_id, author, content):
     data["students"][student_id]["notes"].append(note)
     save_data(data)
 
+def get_student_by_id(student_id):
+    data = load_data()
 
+    if student_id not in data["students"]:
+        raise ValueError("Student not found")
+
+    student = data["students"][student_id]
+
+    # Convert class IDs to readable class names
+    class_names = []
+    for class_id in student["classes"]:
+        class_names.append(data["classes"][class_id]["name"])
+
+    return {
+        "id": student_id,
+        "full_name": f"{student['personal_info']['first_name']} {student['personal_info']['last_name']}",
+        "preferred_name": student['personal_info'].get("preferred_name", ""),
+        "age": student['personal_info']['age'],
+        "grade": student['personal_info']['grade'],
+        "school": student['personal_info']['school'],
+        "classes": class_names,
+        "career_goal": student["career_goal"],
+        "interests": student["interests"],
+        "strengths": student["strengths"],
+        "notes": student["notes"],
+        "last_updated": student["last_updated"]
+    }

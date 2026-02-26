@@ -1,47 +1,129 @@
 {
-  "students": [
-    {
-      "id": 1,
-      "name": "Emma",
-      "surname": "Johnson",
-      "age": 11,
-      "grade": "Grade 5",
-      "school": "Lincoln Elementary",
-      "career_goal": "Software Developer",
-      "interests": ["Coding", "Robotics"],
-      "strengths": ["Problem Solving", "Creativity"],
-      "classes": [1, 2],
+  "meta": {
+    "last_updated": "2026-02-19",
+    "total_students": 3
+  },
+
+  "classes": {
+    "CS_L3_1": {
+      "name": "Computer Science Level 3.1",
+      "schedule": "Mon 14:00",
+      "students": ["STD001"]
+    },
+    "CS_L1": {
+      "name": "Computer Science Level 1",
+      "schedule": "Tue 16:00",
+      "students": ["STD002"]
+    },
+    "PY_L1": {
+      "name": "Python Level 1",
+      "schedule": "Wed 14:00",
+      "students": ["STD003"]
+    }
+  },
+
+  "students": {
+    "STD001": {
+      "personal_info": {
+        "first_name": "Emma",
+        "last_name": "Johnson",
+        "preferred_name": "Em",
+        "age": 11,
+        "grade": "Grade 5",
+        "school": "Lincoln Elementary"
+      },
+
+      "classes": ["CS_L3_1"],
+
+      "career_goal": "Game Developer",
+
+      "interests": [
+        "Video games",
+        "Robotics",
+        "Drawing"
+      ],
+
+      "strengths": [
+        "Logical thinking",
+        "Problem solving",
+        "Creativity"
+      ],
+
       "notes": [
         {
-          "date": "2026-02-22",
-          "content": "Very focused during Python lesson."
+          "date": "2026-01-15",
+          "author": "Instructor",
+          "content": "Very engaged in class, enjoys challenges."
         }
       ],
-      "last_updated": "2026-02-22"
-    }
-  ],
 
-  "classes": [
-    {
-      "id": 1,
-      "class_name": "Python course 1",
-      "schedule": "Wed 2:00",
-      "subject": "Python",
-      "students": [1]
+      "last_updated": "2026-01-15"
     },
-    {
-      "id": 2,
-      "class_name": "Robotics",
-      "schedule": "Fri 3:00",
-      "subject": "Robotics",
-      "students": [1]
+
+    "STD002": {
+      "personal_info": {
+        "first_name": "Lucas",
+        "last_name": "Martinez",
+        "preferred_name": "Lucas",
+        "age": 13,
+        "grade": "Grade 7",
+        "school": "Riverside Middle School"
+      },
+
+      "classes": ["CS_L1"],
+
+      "career_goal": "Software Engineer",
+
+      "interests": [
+        "Coding",
+        "Math",
+        "Technology"
+      ],
+
+      "strengths": [
+        "Focus",
+        "Persistence"
+      ],
+
+      "notes": [],
+
+      "last_updated": "2026-01-14"
     },
-    {
-      "id": 3,
-      "class_name": "Java Script",
-      "schedule": "Mon 4:00",
-      "subject": "JavaScript",
-      "students": []
+
+    "STD003": {
+      "personal_info": {
+        "first_name": "Sophia",
+        "last_name": "Chen",
+        "preferred_name": "Sophie",
+        "age": 10,
+        "grade": "Grade 4",
+        "school": "Lincoln Elementary"
+      },
+
+      "classes": ["PY_L1"],
+
+      "career_goal": "Data Scientist",
+
+      "interests": [
+        "Patterns",
+        "Puzzles",
+        "Python"
+      ],
+
+      "strengths": [
+        "Attention to detail",
+        "Curiosity"
+      ],
+
+      "notes": [
+        {
+          "date": "2026-01-12",
+          "author": "Instructor",
+          "content": "Quick learner, finishes tasks early."
+        }
+      ],
+
+      "last_updated": "2026-01-12"
     }
-  ]
+  }
 }

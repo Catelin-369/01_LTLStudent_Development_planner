@@ -133,3 +133,42 @@ def get_student_by_id(student_id):
         "notes": student["notes"],
         "last_updated": student["last_updated"]
     }
+
+from datetime import datetime
+
+def edit_student(student_id, updates):
+    data = load_data()
+
+    if student_id not in data["students"]:
+        raise ValueError("Student not found")
+
+    student = data["students"][student_id]
+
+    # Update personal info safely
+    if "personal_info" in updates:
+        for key, value in updates["personal_info"].items():
+            student["personal_info"][key] = value
+
+    # Update simple fields
+    for field in ["career_goal", "interests", "strengths"]:
+        if field in updates:
+            student[field] = updates[field]
+
+    # Handle class changes
+    if "classes" in updates:
+        old_classes = set(student["classes"])
+        new_classes = set(updates["classes"])
+
+        # Remove from old classes
+        for class_id in old_classes - new_classes:
+            if student_id in data["classes"][class_id]["students"]:
+                data["classes"][class_id]["students"].remove(student_id)
+
+        # Add to new classes
+        for class_id in new_classes - old_classes:
+            data["classes"][class_id]["students"].append(student_id)
+
+        student["classes"] = list(new_classes)
+
+    student["last_updated"] = datetime.now().strftime("%Y-%m-%d")
+    save_dataata = save_data(data)

@@ -53,3 +53,30 @@ def show_student_profile(student_id):
 
     print(f"\nLast Updated: {student['last_updated']}")
     print("=" * 50)
+
+
+from Services.students import edit_student
+
+def edit_student_profile(student_id):
+    print("\nEDIT STUDENT PROFILE")
+
+    new_grade = input("New grade (leave blank to keep current): ")
+    new_school = input("New school (leave blank to keep current): ")
+    new_goal = input("New career goal (leave blank to keep current): ")
+
+    updates = {
+        "personal_info": {},
+    }
+
+    if new_grade:
+        updates["personal_info"]["grade"] = new_grade
+    if new_school:
+        updates["personal_info"]["school"] = new_school
+    if new_goal:
+        updates["career_goal"] = new_goal
+
+    if updates["personal_info"] or "career_goal" in updates:
+        edit_student(student_id, updates)
+        print("Student updated successfully.")
+    else:
+        print("No changes made.")

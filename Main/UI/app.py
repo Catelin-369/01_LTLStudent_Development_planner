@@ -105,13 +105,69 @@ from Services.students import delete_student
            self.load_students()
 
    def add_student(self):
-       messagebox.showinfo("Info", "Add student UI coming next")
+    popup = tk.Toplevel(self.root)
+    popup.title("Add Student")
+    popup.geometry("400x600")
+
+    # --- FORM FIELDS ---
+    fields = {}
+
+    def create_field(label):
+        tk.Label(popup, text=label).pack()
+        entry = tk.Entry(popup)
+        entry.pack(fill="x", padx=10, pady=5)
+        fields[label] = entry
+
+    create_field("First Name")
+    create_field("Last Name")
+    create_field("Preferred Name")
+    create_field("Age")
+    create_field("Grade")
+    create_field("School")
+    create_field("Career Goal")
+    create_field("Interests (comma separated)")
+    create_field("Strengths (comma separated)")
+    create_field("Class IDs (comma separated)")
+
+    # --- SAVE FUNCTION ---
+    def save_student():
+        try:
+            student_data = {
+                "personal_info": {
+                    "first_name": fields["First Name"].get(),
+                    "last_name": fields["Last Name"].get(),
+                    "preferred_name": fields["Preferred Name"].get(),
+                    "age": int(fields["Age"].get()),
+                    "grade": fields["Grade"].get(),
+                    "school": fields["School"].get()
+                },
+                "career_goal": fields["Career Goal"].get(),
+                "interests": [i.strip() for i in fields["Interests (comma separated)"].get().split(",") if i.strip()],
+                "strengths": [s.strip() for s in fields["Strengths (comma separated)"].get().split(",") if s.strip()],
+                "classes": [c.strip() for c in fields["Class IDs (comma separated)"].get().split(",") if c.strip()]
+            }
+
+            add_student(student_data)
+
+            messagebox.showinfo("Success", "Student added successfully!")
+            popup.destroy()
+            self.load_students()
+
+        except ValueError:
+            messagebox.showerror("Error", "Please enter a valid age")
+
+        if not fields["First Name"].get() or not fields["Last Name"].get():
+            messagebox.showerror("Error", "Name is required")
+            return
+
+    tk.Button(popup, text="Save Student", command=save_student).pack(pady=20)
 
    def edit_student(self):
        messagebox.showinfo("Info", "Edit student UI coming next")
 
 import tkinter as tk
 from UI.app import StudentApp
+
 
 root = tk.Tk()
 app = StudentApp(root)

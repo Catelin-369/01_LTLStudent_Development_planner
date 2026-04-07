@@ -1,5 +1,7 @@
 from Services.students import load_data
 from Services.students import get_student_by_id
+from Services.students import edit_student
+from Services.students import add_student
 
 def get_all_students():
     data = load_data()
@@ -55,7 +57,7 @@ def show_student_profile(student_id):
     print("=" * 50)
 
 
-from Services.students import edit_student
+#from Services.students import edit_student
 
 def edit_student_profile(student_id):
     print("\nEDIT STUDENT PROFILE")
@@ -80,3 +82,40 @@ def edit_student_profile(student_id):
         print("Student updated successfully.")
     else:
         print("No changes made.")
+        
+#add student
+#from Services.students import add_student
+def add_student_profile():
+    print("\nADD NEW STUDENT")
+
+    first_name = input("First name: ")
+    last_name = input("Last name: ")
+    preferred_name = input("Preferred name: ")
+    age = int(input("Age: "))
+    grade = input("Grade: ")
+    school = input("School: ")
+
+    career_goal = input("Career goal: ")
+
+    interests = input("Interests (comma separated): ").split(",")
+    strengths = input("Strengths (comma separated): ").split(",")
+
+    classes = input("Class IDs (comma separated, e.g. CS_L1,PY_L1): ").split(",")
+
+    student_data = {
+        "personal_info": {
+            "first_name": first_name,
+            "last_name": last_name,
+            "preferred_name": preferred_name,
+            "age": age,
+            "grade": grade,
+            "school": school
+        },
+        "classes": [c.strip() for c in classes if c.strip()],
+        "career_goal": career_goal,
+        "interests": [i.strip() for i in interests if i.strip()],
+        "strengths": [s.strip() for s in strengths if s.strip()]
+    }
+
+    student_id = add_student(student_data)
+    print(f"Student added successfully with ID: {student_id}")

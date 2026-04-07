@@ -25,7 +25,7 @@ class StudentApp:
 
         self.tree.pack(fill="both", expand=True)
 
-      def load_students(self):
+    def load_students(self):
         for row in self.tree.get_children():
             self.tree.delete(row)
 

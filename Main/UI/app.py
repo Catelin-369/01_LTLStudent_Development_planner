@@ -49,7 +49,7 @@ class StudentApp:
         tk.Button(button_frame, text="Edit Student", command=self.edit_student).pack(side="left", padx=5)
         tk.Button(button_frame, text="Delete Student", command=self.delete_student).pack(side="left", padx=5)
         
-      def get_selected_student_id(self):
+    def get_selected_student_id(self):
         selected = self.tree.selection()
 
         if not selected:
@@ -58,7 +58,7 @@ class StudentApp:
 
         return self.tree.item(selected[0])["values"][0]
 
-        def view_student(self):
+    def view_student(self):
         student_id = self.get_selected_student_id()
         if not student_id:
             return
@@ -94,21 +94,21 @@ Strengths:
 
 from Services.students import delete_student
 
-    def delete_student(self):
-        student_id = self.get_selected_student_id()
-        if not student_id:
-            return
+  def delete_student(self):
+      student_id = self.get_selected_student_id()
+      if not student_id:
+          return
 
-        confirm = messagebox.askyesno("Confirm", "Delete this student?")
-        if confirm:
-            delete_student(student_id)
-            self.load_students()
+      confirm = messagebox.askyesno("Confirm", "Delete this student?")
+      if confirm:
+          delete_student(student_id)
+          self.load_students()
 
-    def add_student(self):
-        messagebox.showinfo("Info", "Add student UI coming next")
+  def add_student(self):
+      messagebox.showinfo("Info", "Add student UI coming next")
 
-    def edit_student(self):
-        messagebox.showinfo("Info", "Edit student UI coming next")
+  def edit_student(self):
+      messagebox.showinfo("Info", "Edit student UI coming next")
 
 import tkinter as tk
 from UI.app import StudentApp

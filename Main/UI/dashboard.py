@@ -119,3 +119,7 @@ def add_student_profile():
 
     student_id = add_student(student_data)
     print(f"Student added successfully with ID: {student_id}")
+    
+    for class_id in data["students"][student_id]["classes"]:
+        if class_id in data["classes"]:
+            data["classes"][class_id]["students"].append(student_id)

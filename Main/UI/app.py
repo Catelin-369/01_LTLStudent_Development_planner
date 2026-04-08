@@ -7,12 +7,28 @@ from Services.students import add_note, load_data
 
 class StudentApp:
     def __init__(self, root):
-        self.root = root
-        self.root.title("Student Developer Dashboard")
-        self.root.geometry("900x500")
+        self.sidebar = tk.Frame(self.root, bg="#2c3e50", width=200)
+        self.sidebar.pack(side="left", fill="y")
+
+        self.main_area = tk.Frame(self.root, bg="#ecf0f1")
+        self.main_area.pack(side="right", fill="both", expand=True)
 
         self.create_widgets()
         self.load_students()
+
+        style = ttk.Style()
+        style.theme_use("default")
+
+        style.configure("Treeview",
+                        background="#ffffff",
+                        foreground="black",
+                        rowheight=28,
+                        fieldbackground="#ffffff"
+        )
+
+        style.configure("Treeview.Heading",
+                        font=("Segoe UI", 10, "bold")
+        )
 
     def create_widgets(self):
         search_frame = tk.Frame(self.root)

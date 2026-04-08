@@ -105,23 +105,30 @@ class StudentApp:
 
         info = student["personal_info"]
 
+        notes_text = "\n".join(
+            [f"[{n['date']}] {n['author']}: {n['content']}" for n in student["notes"]]
+        ) or "No notes yet."
+
         text = f"""
-Name: {info['first_name']} {info['last_name']}
-Preferred: {info.get('preferred_name', '')}
-Age: {info['age']}
-Grade: {info['grade']}
-School: {info['school']}
+        Name: {info['first_name']} {info['last_name']}
+        Preferred: {info.get('preferred_name', '')}
+        Age: {info['age']}
+        Grade: {info['grade']}
+        School: {info['school']}
 
-Career Goal: {student['career_goal']}
+        Career Goal: {student['career_goal']}
 
-Classes: {', '.join(student['classes'])}
+        Classes: {', '.join(student['classes'])}
 
-Interests:
-- {'\n- '.join(student['interests'])}
+        Interests:
+        - {'\n- '.join(student['interests'])}
 
-Strengths:
-- {'\n- '.join(student['strengths'])}
-"""
+        Strengths:
+        - {'\n- '.join(student['strengths'])}
+
+        Notes:
+        {notes_text}
+        """
 
         tk.Label(popup, text=text, justify="left").pack(padx=10, pady=10)
 

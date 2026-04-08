@@ -31,17 +31,28 @@ class StudentApp:
         )
 
     def create_widgets(self):
-        search_frame = tk.Frame(self.root)
-        search_frame.pack(fill="x", padx=5, pady=5)
+        header = tk.Label(
+            self.main_area,
+            text="Student Dashboard",
+            font=("Segoe UI", 16, "bold"),
+            bg="#ecf0f1"
+        )
+        header.pack(pady=10)
+        
+           # --- SEARCH BAR ---
+        search_frame = tk.Frame(self.main_area, bg="#ecf0f1")
+        search_frame.pack(fill="x", padx=10, pady=10)
 
-        tk.Label(search_frame, text="Search:").pack(side="left")
+        tk.Label(search_frame, text="Search:", bg="#ecf0f1").pack(side="left")
 
         self.search_var = tk.StringVar()
         self.search_var.trace("w", self.filter_students)
 
-        search_entry = tk.Entry(search_frame, textvariable=self.search_var)
-        search_entry.pack(side="left", fill="x", expand=True, padx=5)
-        
+        tk.Entry(search_frame, textvariable=self.search_var).pack(
+            side="left", fill="x", expand=True, padx=5
+        )
+
+        # --- TABLE ---
         columns = ("ID", "Name", "School", "Grade", "Classes", "Updated")
 
         self.tree = ttk.Treeview(self.root, columns=columns, show="headings")
@@ -52,6 +63,25 @@ class StudentApp:
 
         self.tree.pack(fill="both", expand=True)
         tk.Button(button_frame, text="Add Note", command=self.add_note_ui).pack(side="left", padx=5)
+
+        def sidebar_button(text, command):
+            return tk.Button(
+                self.sidebar,
+                text=text,
+                command=command,
+                bg="#34495e",
+                fg="white",
+                activebackground="#1abc9c",
+                relief="flat",
+                padx=10,
+                pady=10
+            )
+
+            sidebar_button("View Profile", self.view_student).pack(fill="x", pady=5)
+            sidebar_button("Add Student", self.add_student).pack(fill="x", pady=5)
+            sidebar_button("Edit Student", self.edit_student).pack(fill="x", pady=5)
+            sidebar_button("Delete Student", self.delete_student).pack(fill="x", pady=5)
+            sidebar_button("Add Note", self.add_note_ui).pack(fill="x", pady=5)
         
     def load_students(self):
         for row in self.tree.get_children():

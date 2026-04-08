@@ -15,6 +15,17 @@ class StudentApp:
         self.load_students()
 
     def create_widgets(self):
+        search_frame = tk.Frame(self.root)
+        search_frame.pack(fill="x", padx=5, pady=5)
+
+        tk.Label(search_frame, text="Search:").pack(side="left")
+
+        self.search_var = tk.StringVar()
+        self.search_var.trace("w", self.filter_students)
+
+        search_entry = tk.Entry(search_frame, textvariable=self.search_var)
+        search_entry.pack(side="left", fill="x", expand=True, padx=5)
+        
         columns = ("ID", "Name", "School", "Grade", "Classes", "Updated")
 
         self.tree = ttk.Treeview(self.root, columns=columns, show="headings")
@@ -29,6 +40,11 @@ class StudentApp:
     def load_students(self):
         for row in self.tree.get_children():
             self.tree.delete(row)
+
+        self.all_students = get_all_students()  # store all students
+
+        self.display_filtered_students(self.all_students)
+        
 
         students = get_all_students()
 

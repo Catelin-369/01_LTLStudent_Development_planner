@@ -162,8 +162,68 @@ from Services.students import delete_student
 
     tk.Button(popup, text="Save Student", command=save_student).pack(pady=20)
 
-   def edit_student(self):
-       messagebox.showinfo("Info", "Edit student UI coming next")
+from Services.students import edit_student, load_data
+
+def edit_student(self):
+    student_id = self.get_selected_student_id()
+    if not student_id:
+        return
+
+    data = load_data()
+    student = data["students"][student_id]
+    info = student["personal_info"]
+
+    popup = tk.Toplevel(self.root)
+    popup.title("Edit Student")
+    popup.geometry("400x600")
+
+    fields = {}
+
+    def create_field(label, value):
+        tk.Label(popup, text=label).pack()
+        entry = tk.Entry(popup)
+        entry.insert(0, value)
+        entry.pack(fill="x", padx=10, pady=5)
+        fields[label] = entry
+
+    create_field("First Name", info["first_name"])
+    create_field("Last Name", info["last_name"])
+    create_field("Preferred Name", info.get("preferred_name", ""))
+    create_field("Age", info["age"])
+    create_field("Grade", info["grade"])
+    create_field("School", info["school"])
+    create_field("Career Goal", student["career_goal"])
+    create_field("Interests", ", ".join(student["interests"]))
+    create_field("Strengths", ", ".join(student["strengths"]))
+    create_field("Classes", ", ".join(student["classes"]))
+
+    def save_changes():
+        try:
+            updates = {
+                "personal_info": {
+                    "first_name": fields["First Name"].get(),
+                    "last_name": fields["Last Name"].get(),
+                    "preferred_name": fields["Preferred Name"].get(),
+                    "age": int(fields["Age"].get()),
+                    "grade": fields["Grade"].get(),
+                    "school": fields["School"].get()
+                },
+                "career_goal": fields["Career Goal"].get(),
+                "interests": [i.strip() for i in fields["Interests"].get().split(",") if i.strip()],
+                "strengths": [s.strip() for s in fields["Strengths"].get().split(",") if s.strip()],
+                "classes": [c.strip() for c in fields["Classes"].get().split(",") if c.strip()]
+            }
+
+            edit_student(student_id, updates)
+
+            messagebox.showinfo("Success", "Student updated successfully!")
+            popup.destroy()
+            self.load_students()
+
+        except ValueError:
+            messagebox.showerror("Error", "Invalid input (check age)")
+
+    tk.Button(popup, text="Save Changes", command=save_changes).pack(pady=20)
 
 import tkinter as tk
 from UI.app import StudentApp

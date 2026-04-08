@@ -3,7 +3,7 @@ from tkinter import ttk, messagebox
 
 from Services.students import load_data
 from UI.dashboard import get_all_students, show_student_profile
-
+from Services.students import add_note, load_data
 
 class StudentApp:
     def __init__(self, root):
@@ -24,7 +24,8 @@ class StudentApp:
             self.tree.column(col, width=130)
 
         self.tree.pack(fill="both", expand=True)
-
+        tk.Button(button_frame, text="Add Note", command=self.add_note_ui).pack(side="left", padx=5)
+        
     def load_students(self):
         for row in self.tree.get_children():
             self.tree.delete(row)
@@ -57,6 +58,38 @@ class StudentApp:
             return None
 
         return self.tree.item(selected[0])["values"][0]
+
+    def add_note_ui(self):
+        student_id = self.get_selected_student_id()
+        if not student_id:
+            return
+
+    popup = tk.Toplevel(self.root)
+    popup.title("Add Note")
+    popup.geometry("400x300")
+
+    tk.Label(popup, text="Author").pack()
+    author_entry = tk.Entry(popup)
+    author_entry.pack(fill="x", padx=10, pady=5)
+
+    tk.Label(popup, text="Note").pack()
+    note_text = tk.Text(popup, height=8)
+    note_text.pack(fill="both", padx=10, pady=5)
+
+    def save_note():
+        author = author_entry.get()
+        content = note_text.get("1.0", "end").strip()
+
+        if not author or not content:
+            messagebox.showerror("Error", "All fields required")
+            return
+
+        add_note(student_id, author, content)
+
+        messagebox.showinfo("Success", "Note added!")
+        popup.destroy()
+
+    tk.Button(popup, text="Save Note", command=save_note).pack(pady=10)
 
     def view_student(self):
         student_id = self.get_selected_student_id()

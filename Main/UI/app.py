@@ -222,7 +222,10 @@ def edit_student(self):
 
         except ValueError:
             messagebox.showerror("Error", "Invalid input (check age)")
-
+        if not fields["First Name"].get():
+            messagebox.showerror("Error", "First name required")
+            return
+    
     tk.Button(popup, text="Save Changes", command=save_changes).pack(pady=20)
 
 import tkinter as tk

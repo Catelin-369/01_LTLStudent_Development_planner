@@ -80,17 +80,17 @@ class StudentApp:
         if not student_id:
             return
 
-    popup = tk.Toplevel(self.root)
-    popup.title("Add Note")
-    popup.geometry("400x300")
+        popup = tk.Toplevel(self.root)
+        popup.title("Add Note")
+        popup.geometry("400x300")
 
-    tk.Label(popup, text="Author").pack()
-    author_entry = tk.Entry(popup)
-    author_entry.pack(fill="x", padx=10, pady=5)
+        tk.Label(popup, text="Author").pack()
+        author_entry = tk.Entry(popup)
+        author_entry.pack(fill="x", padx=10, pady=5)
 
-    tk.Label(popup, text="Note").pack()
-    note_text = tk.Text(popup, height=8)
-    note_text.pack(fill="both", padx=10, pady=5)
+        tk.Label(popup, text="Note").pack()
+        note_text = tk.Text(popup, height=8)
+        note_text.pack(fill="both", padx=10, pady=5)
 
     def save_note():
         author = author_entry.get()
@@ -105,7 +105,7 @@ class StudentApp:
         messagebox.showinfo("Success", "Note added!")
         popup.destroy()
 
-    tk.Button(popup, text="Save Note", command=save_note).pack(pady=10)
+        tk.Button(popup, text="Save Note", command=save_note).pack(pady=10)
 
     def view_student(self):
         student_id = self.get_selected_student_id()
@@ -148,7 +148,7 @@ class StudentApp:
 
         tk.Label(popup, text=text, justify="left").pack(padx=10, pady=10)
 
-from Services.students import delete_student
+        from Services.students import delete_student
 
    def delete_student(self):
        student_id = self.get_selected_student_id()
@@ -161,12 +161,12 @@ from Services.students import delete_student
            self.load_students()
 
    def add_student(self):
-    popup = tk.Toplevel(self.root)
-    popup.title("Add Student")
-    popup.geometry("400x600")
+       popup = tk.Toplevel(self.root)
+       popup.title("Add Student")
+       popup.geometry("400x600")
 
-    # --- FORM FIELDS ---
-    fields = {}
+        # --- FORM FIELDS ---
+       fields = {}
 
     def create_field(label):
         tk.Label(popup, text=label).pack()
@@ -174,16 +174,16 @@ from Services.students import delete_student
         entry.pack(fill="x", padx=10, pady=5)
         fields[label] = entry
 
-    create_field("First Name")
-    create_field("Last Name")
-    create_field("Preferred Name")
-    create_field("Age")
-    create_field("Grade")
-    create_field("School")
-    create_field("Career Goal")
-    create_field("Interests (comma separated)")
-    create_field("Strengths (comma separated)")
-    create_field("Class IDs (comma separated)")
+        create_field("First Name")
+        create_field("Last Name")
+        create_field("Preferred Name")
+        create_field("Age")
+        create_field("Grade")
+        create_field("School")
+        create_field("Career Goal")
+        create_field("Interests (comma separated)")
+        create_field("Strengths (comma separated)")
+        create_field("Class IDs (comma separated)")
 
     # --- SAVE FUNCTION ---
     def save_student():
@@ -216,24 +216,24 @@ from Services.students import delete_student
             messagebox.showerror("Error", "Name is required")
             return
 
-    tk.Button(popup, text="Save Student", command=save_student).pack(pady=20)
+        tk.Button(popup, text="Save Student", command=save_student).pack(pady=20)
 
-from Services.students import edit_student, load_data
+        from Services.students import edit_student, load_data
 
-def edit_student(self):
-    student_id = self.get_selected_student_id()
-    if not student_id:
-        return
+    def edit_student(self):
+        student_id = self.get_selected_student_id()
+        if not student_id:
+            return
 
-    data = load_data()
-    student = data["students"][student_id]
-    info = student["personal_info"]
+        data = load_data()
+        student = data["students"][student_id]
+        info = student["personal_info"]
 
-    popup = tk.Toplevel(self.root)
-    popup.title("Edit Student")
-    popup.geometry("400x600")
+        popup = tk.Toplevel(self.root)
+        popup.title("Edit Student")
+        popup.geometry("400x600")
 
-    fields = {}
+        fields = {}
 
     def create_field(label, value):
         tk.Label(popup, text=label).pack()
@@ -242,16 +242,16 @@ def edit_student(self):
         entry.pack(fill="x", padx=10, pady=5)
         fields[label] = entry
 
-    create_field("First Name", info["first_name"])
-    create_field("Last Name", info["last_name"])
-    create_field("Preferred Name", info.get("preferred_name", ""))
-    create_field("Age", info["age"])
-    create_field("Grade", info["grade"])
-    create_field("School", info["school"])
-    create_field("Career Goal", student["career_goal"])
-    create_field("Interests", ", ".join(student["interests"]))
-    create_field("Strengths", ", ".join(student["strengths"]))
-    create_field("Classes", ", ".join(student["classes"]))
+        create_field("First Name", info["first_name"])
+        create_field("Last Name", info["last_name"])
+        create_field("Preferred Name", info.get("preferred_name", ""))
+        create_field("Age", info["age"])
+        create_field("Grade", info["grade"])
+        create_field("School", info["school"])
+        create_field("Career Goal", student["career_goal"])
+        create_field("Interests", ", ".join(student["interests"]))
+        create_field("Strengths", ", ".join(student["strengths"]))
+        create_field("Classes", ", ".join(student["classes"]))
 
     def save_changes():
         try:
@@ -282,7 +282,7 @@ def edit_student(self):
             messagebox.showerror("Error", "First name required")
             return
     
-    tk.Button(popup, text="Save Changes", command=save_changes).pack(pady=20)
+        tk.Button(popup, text="Save Changes", command=save_changes).pack(pady=20)
 
 import tkinter as tk
 from UI.app import StudentApp

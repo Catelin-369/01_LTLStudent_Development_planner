@@ -287,6 +287,34 @@ class StudentApp:
 import tkinter as tk
 from UI.app import StudentApp
 
+    def filter_students(self, *args):
+        query = self.search_var.get().lower()
+
+        filtered = []
+
+        for s in self.all_students:
+            if (
+                query in s["name"].lower()
+                or query in s["school"].lower()
+                or query in s["grade"].lower()
+            ):
+                filtered.append(s)
+
+        self.display_filtered_students(filtered)
+
+    def display_filtered_students(self, students):
+        for row in self.tree.get_children():
+            self.tree.delete(row)
+
+        for s in students:
+            self.tree.insert("", "end", values=(
+                s["id"],
+                s["name"],
+                s["school"],
+                s["grade"],
+                ", ".join(s["classes"]),
+                s["last_updated"]
+            ))
 
 root = tk.Tk()
 app = StudentApp(root)
